@@ -44,11 +44,26 @@ messageInput.addEventListener('keypress', (event) => {
         sendMessage();
     }
 });
-// Função para contar e exibir usuários online
+
+// Configuração de presença para monitorar usuários online
+const presenceRef = database.ref('.info/connected');
+const onlineUsersRef = database.ref('onlineUsers');
+
+presenceRef.on('value', (snapshot) => {
+    if (snapshot.val()) {
+        const userRef = onlineUsersRef.push();
+        userRef.set(true);
+        userRef.onDisconnect().remove(); // Remove o usuário da lista quando ele desconectar
+    }
+});
+
+/// Função para contar e exibir usuários online
 onlineUsersRef.on('value', (snapshot) => {
     const userCount = snapshot.numChildren(); // Conta quantos usuários estão online
     document.getElementById('user-count-number').innerText = userCount;
 });
+
+
 function sendMessage() {
     const newMessage = messageInput.value.trim();
     if (newMessage) {
@@ -79,7 +94,6 @@ function disableSendButton(seconds) {
         }
     }, 1000);
 }
-
 
 function displayMessage(user, text) {
     const messageDiv = document.createElement('div');
