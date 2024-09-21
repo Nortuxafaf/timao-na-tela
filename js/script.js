@@ -57,12 +57,6 @@ presenceRef.on('value', (snapshot) => {
     }
 });
 
-/// Função para contar e exibir usuários online
-onlineUsersRef.on('value', (snapshot) => {
-    const userCount = snapshot.numChildren(); // Conta quantos usuários estão online
-    document.getElementById('user-count-number').innerText = userCount;
-});
-
 
 function sendMessage() {
     const newMessage = messageInput.value.trim();
