@@ -19,17 +19,24 @@ const messageInput = document.getElementById('message-input');
 const nameInput = document.getElementById('name-input');
 const nameBtn = document.getElementById('name-btn');
 
+// Função para atualizar o link do player a partir do Firebase
+database.ref('playerUrl').on('value', (snapshot) => {
+    const playerUrl = snapshot.val();
+    const iframe = document.querySelector('#player iframe');
+    iframe.src = playerUrl;  // Atualiza o src do iframe com o link armazenado no Firebase
+});
+
 nameBtn.addEventListener('click', () => {
     const name = nameInput.value.trim();
-    const nameRegex = /^[a-zA-Z0-9]+$/; 
+    const nameRegex = /^[a-zA-Z0-9]+$/;
 
     if (name && nameRegex.test(name)) {
         userName = name;
         nameInput.style.display = 'none';
         nameBtn.style.display = 'none';
-        messageInput.style.display = 'inline-block'; 
-        sendBtn.style.display = 'inline-block'; 
-        messageInput.focus(); 
+        messageInput.style.display = 'inline-block';
+        sendBtn.style.display = 'inline-block';
+        messageInput.focus();
     } else {
         alert('Por favor, digite um nome válido (apenas letras e números).');
     }
@@ -57,7 +64,6 @@ presenceRef.on('value', (snapshot) => {
     }
 });
 
-
 function sendMessage() {
     const newMessage = messageInput.value.trim();
     if (newMessage) {
@@ -68,7 +74,7 @@ function sendMessage() {
         };
         database.ref('messages').push(messageData);
         messageInput.value = '';
-        disableSendButton(5); 
+        disableSendButton(5);
     }
 }
 
@@ -109,7 +115,7 @@ function displayMessage(user, text) {
     if (messages.length > 5) {
         chatBox.removeChild(messages[0]);
     }
-    chatBox.scrollTop = chatBox.scrollHeight; 
+    chatBox.scrollTop = chatBox.scrollHeight;
 }
 
 database.ref('messages').on('child_added', (snapshot) => {
