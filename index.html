@@ -1,153 +1,35 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogo Stop</title>
-    <style>
-        /* Estilos básicos */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f5f5f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 20px;
-        }
-
-        label {
-            margin-top: 10px;
-            font-weight: bold;
-            text-align: left;
-        }
-
-        input {
-            margin-top: 5px;
-            padding: 10px;
-            border: 2px solid #ccc;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        input:focus {
-            border-color: #4CAF50;
-            outline: none;
-        }
-
-        .button {
-            padding: 15px 20px;
-            margin-top: 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-
-        .button:hover {
-            background-color: #45a049;
-        }
-
-        .letter {
-            font-size: 2 rem;  /* Ajuste de tamanho da fonte */
-            font-weight: bold;
-            margin: 20px 0;
-            color: #4CAF50;
-            border: 2px solid #4CAF50;
-            padding: 10px;
-            border-radius: 8px;
-            display: inline-block;
-            width: 100%;
-            max-width: 120px;
-            margin-left: auto;
-            margin-right: auto;
-            text-align: center;
-        }
-    </style>
+    <title>Player com Chat ao Vivo</title>
+    <!-- Link para o arquivo de estilo -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Jogo Stop</h1>
-        <button id="startBtn" class="button">Gerar Letra</button>
-        <div id="letterDisplay" class="letter">Letra: A</div>
-
-        <form id="gameForm">
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" placeholder="Digite um nome">
-            <label for="fruta">Fruta:</label>
-            <input type="text" id="fruta" placeholder="Digite uma fruta">
-            <label for="pais">País:</label>
-            <input type="text" id="pais" placeholder="Digite um país">
-            <label for="cor">Cor:</label>
-            <input type="text" id="cor" placeholder="Digite uma cor">
-            <label for="animal">Animal:</label>
-            <input type="text" id="animal" placeholder="Digite um animal">
-            <label for="fnd">FND (Filme, Novela ou Desenho):</label>
-            <input type="text" id="fnd" placeholder="Digite um filme, novela ou desenho">
-        </form>
-
-        <button id="stopBtn" class="button">STOP!</button>
+   <div class="container">
+    <div id="player">
+        <iframe allow="encrypted-media" allowfullscreen="" frameborder="0" width="100%" height="400"></iframe>
+        <div id="viewer-count">Assistindo agora: <span id="viewer-number">0</span> pessoas</div>
     </div>
+    <div id="chat-container">
+        <div id="chat-header">Chat ao Vivo</div>
+        <div id="chat-box"></div>
+        <div id="input-container">
+            <input type="text" id="name-input" placeholder="Digite seu nome...">
+            <button id="name-btn">Entrar</button>
+            <input type="text" id="message-input" placeholder="Digite sua mensagem..." style="display:none;">
+            <button id="send-btn" style="display:none;">Enviar</button>
+        </div>
+    </div>
+</div>
 
-    <script>
-        document.getElementById('startBtn').addEventListener('click', generateLetter);
-        document.getElementById('stopBtn').addEventListener('click', stopGame);
 
-        function generateLetter() {
-            const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            const randomLetter = alphabet[Math.floor(Math.random() * alphabet.length)];
-            document.getElementById('letterDisplay').textContent = "Letra: " + randomLetter;
-        }
-
-        function stopGame() {
-            const nome = document.getElementById('nome').value;
-            const fruta = document.getElementById('fruta').value;
-            const pais = document.getElementById('pais').value;
-            const cor = document.getElementById('cor').value;
-            const animal = document.getElementById('animal').value;
-            const fnd = document.getElementById('fnd').value;
-
-            alert("Parou! Respostas:\n" +
-                "Nome: " + nome + "\n" +
-                "Fruta: " + fruta + "\n" +
-                "País: " + pais + "\n" +
-                "Cor: " + cor + "\n" +
-                "Animal: " + animal + "\n" +
-                "FND: " + fnd);
-        }
-    </script>
+    <!-- Link para o arquivo de script -->
+    <script src="js/script.js"></script>
 </body>
 </html>
